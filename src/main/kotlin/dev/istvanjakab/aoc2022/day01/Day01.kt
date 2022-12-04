@@ -3,11 +3,11 @@ package dev.istvanjakab.aoc2022.day01
 import dev.istvanjakab.aoc2022.checkResult
 import dev.istvanjakab.aoc2022.readInputToStringList
 
-const val PART1_TEST_CRITERIA = 24000
+private const val PART1_TEST_CRITERIA = 24000
 
-const val PART2_TEST_CRITERIA = 45000
+private const val PART2_TEST_CRITERIA = 45000
 
-const val TOP_N = 3
+private const val TOP_N = 3
 
 /**
  * [Description](https://adventofcode.com/2022/day/1)
@@ -25,15 +25,15 @@ fun main() {
     println(part2(puzzleInput))
 }
 
-fun part1(input: List<String>): Int {
+private fun part1(input: List<String>): Int {
     return sumCaloriesList(input).max()
 }
 
-fun part2(input: List<String>): Int {
+private fun part2(input: List<String>): Int {
     return sumCaloriesList(input).sortedDescending().take(TOP_N).sum()
 }
 
-fun sumCaloriesList(input: List<String>): List<Int> {
+private fun sumCaloriesList(input: List<String>): List<Int> {
     val sumCalories = mutableListOf<Int>()
     var sum = 0
     var index = 0

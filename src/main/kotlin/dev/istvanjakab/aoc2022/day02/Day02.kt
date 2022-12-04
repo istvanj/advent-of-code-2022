@@ -1,19 +1,18 @@
 package dev.istvanjakab.aoc2022.day02
 
+import dev.istvanjakab.aoc2022.NotFoundException
 import dev.istvanjakab.aoc2022.checkResult
 import dev.istvanjakab.aoc2022.readInputToStringList
 
-const val PART1_CRITERIA = 15
+private const val PART1_CRITERIA = 15
 
-const val PART2_CRITERIA = 12
+private const val PART2_CRITERIA = 12
 
 data class Shape(val shapeCodePair: Pair<String, String>, val scoreValue: Int)
 
 data class RoundPart1(val opponentShape: String, val playerShape: String)
 
 data class RoundPart2(val opponentShape: String, val desiredOutcomeCode: String)
-
-data class ShapeNotFoundException(override val message: String?) : Exception(message)
 
 val rock = Shape(Pair("A", "X"), 1)
 val paper = Shape(Pair("B", "Y"), 2)
@@ -36,21 +35,21 @@ fun main() {
 
 }
 
-fun readInputToRoundPart1List(inputFileName: String): List<RoundPart1> {
+private fun readInputToRoundPart1List(inputFileName: String): List<RoundPart1> {
     return readInputToStringList(inputFileName).map {
         val split = it.split(" ")
         RoundPart1(split.first(), split.last())
     }
 }
 
-fun readInputToRoundPart2List(inputFileName: String): List<RoundPart2> {
+private fun readInputToRoundPart2List(inputFileName: String): List<RoundPart2> {
     return readInputToStringList(inputFileName).map {
         val split = it.split(" ")
         RoundPart2(split.first(), split.last())
     }
 }
 
-fun part1(input: List<RoundPart1>): Int {
+private fun part1(input: List<RoundPart1>): Int {
     var score = 0
     input.forEach {
         score += calculateOutcome(it) + findShapeByCode(it.playerShape).scoreValue
@@ -58,7 +57,7 @@ fun part1(input: List<RoundPart1>): Int {
     return score
 }
 
-fun part2(input: List<RoundPart2>): Int {
+private fun part2(input: List<RoundPart2>): Int {
     var score = 0
     input.forEach {
         score += desiredOutcomeScore(it.desiredOutcomeCode) + findShapeByCode(shapeToPlay(it)).scoreValue
@@ -66,12 +65,12 @@ fun part2(input: List<RoundPart2>): Int {
     return score
 }
 
-fun findShapeByCode(shapeCode: String): Shape {
+private fun findShapeByCode(shapeCode: String): Shape {
     val foundShape = shapeList.find { shape -> shape.shapeCodePair.toList().any { it == shapeCode } }
-    if (foundShape != null) return foundShape else throw ShapeNotFoundException("Invalid shapeCode $shapeCode")
+    if (foundShape != null) return foundShape else throw NotFoundException("Shape not found! Invalid shapeCode $shapeCode")
 }
 
-fun calculateOutcome(round: RoundPart1): Int {
+private fun calculateOutcome(round: RoundPart1): Int {
 
     var result = -1
 
@@ -105,7 +104,7 @@ fun calculateOutcome(round: RoundPart1): Int {
 
 }
 
-fun desiredOutcomeScore(desiredOutcomeCode: String): Int {
+private fun desiredOutcomeScore(desiredOutcomeCode: String): Int {
     var desiredOutcomeScore = -1
     when (desiredOutcomeCode) {
         "X" -> desiredOutcomeScore = 0
