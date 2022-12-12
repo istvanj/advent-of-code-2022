@@ -9,10 +9,6 @@ private const val PART1_TEST_CRITERIA = 157
 
 private const val PART2_TEST_CRITERIA = 70
 
-private const val CAPITAL_LETTER_DIFF_TO_CHAR_CODE = -38
-
-private const val SMALL_LETTER_DIFF_TO_CHAR_CODE = -96
-
 fun main() {
     val testInput = readInputToStringList("day03/Day03_test.txt")
     val puzzleInput = readInputToStringList("day03/Day03.txt")
@@ -58,8 +54,8 @@ private fun part2(input: List<String>): Int {
 
 private fun Char.getPriority(): Int {
     return if (this.isLowerCase()) {
-        this.code + SMALL_LETTER_DIFF_TO_CHAR_CODE
+        this.code - 'a'.code + 1
     } else if (this.isUpperCase()) {
-        this.code + CAPITAL_LETTER_DIFF_TO_CHAR_CODE
+        this.code - 'A'.code + 27
     } else 0
 }
