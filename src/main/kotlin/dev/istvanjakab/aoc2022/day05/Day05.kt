@@ -29,7 +29,7 @@ fun main() {
     println(part2(inputPart2))
 }
 
-fun readInput(fileName: String): PuzzleInput{
+private fun readInput(fileName: String): PuzzleInput{
     val input = readInputToString(fileName)
     val split = input.split("\n\r")
     val crateStacks = getCrateStacks(split[0])
@@ -37,16 +37,16 @@ fun readInput(fileName: String): PuzzleInput{
     return PuzzleInput(crateStacks, moveList)
 }
 
-fun getTopCrates(crateStacks: List<ArrayDeque<Char>>) = crateStacks.map { it.lastOrNull() }.joinToString("")
+private fun getTopCrates(crateStacks: List<ArrayDeque<Char>>) = crateStacks.map { it.lastOrNull() }.joinToString("")
 
-fun getMoveList(input: String): List<Move> {
+private fun getMoveList(input: String): List<Move> {
     return input.trim().split("\n").map { s ->
         val list = s.split(" ").mapNotNull { it.trim().toIntOrNull() }.toList()
         Move(list[0], list[1], list[2])
     }.toList()
 }
 
-fun part1(puzzleInput: PuzzleInput): String {
+private fun part1(puzzleInput: PuzzleInput): String {
     val crateStacks = mutableListOf<ArrayDeque<Char>>()
     crateStacks.addAll(puzzleInput.crateStacks)
     puzzleInput.moveList.forEach { procedure ->
@@ -58,7 +58,7 @@ fun part1(puzzleInput: PuzzleInput): String {
     return getTopCrates(crateStacks)
 }
 
-fun part2(puzzleInput: PuzzleInput): String {
+private fun part2(puzzleInput: PuzzleInput): String {
     val crateStacks = mutableListOf<ArrayDeque<Char>>()
     crateStacks.addAll(puzzleInput.crateStacks)
     puzzleInput.moveList.forEach { procedure ->
@@ -73,7 +73,7 @@ fun part2(puzzleInput: PuzzleInput): String {
     return getTopCrates(crateStacks)
 }
 
-fun getCrateStacks(input: String): List<ArrayDeque<Char>> {
+private fun getCrateStacks(input: String): List<ArrayDeque<Char>> {
     val lines = input.split("\n")
     val maxStackNumber = getMaxStackNumber(lines.last())
     val stackList = initStackList(maxStackNumber)
@@ -93,7 +93,7 @@ fun getCrateStacks(input: String): List<ArrayDeque<Char>> {
     return stackList
 }
 
-fun initStackList(maxStackNumber: Int): List<ArrayDeque<Char>> {
+private fun initStackList(maxStackNumber: Int): List<ArrayDeque<Char>> {
     val stackList = mutableListOf<ArrayDeque<Char>>()
     for (i in 0 until maxStackNumber) {
         stackList.add(i, ArrayDeque())
@@ -101,4 +101,4 @@ fun initStackList(maxStackNumber: Int): List<ArrayDeque<Char>> {
     return stackList
 }
 
-fun getMaxStackNumber(line: String): Int = line.split(" ").stream().map { it.trim() }.filter { it.isNotEmpty() }.map { it.toInt() }.toList().max()
+private fun getMaxStackNumber(line: String): Int = line.split(" ").stream().map { it.trim() }.filter { it.isNotEmpty() }.map { it.toInt() }.toList().max()
